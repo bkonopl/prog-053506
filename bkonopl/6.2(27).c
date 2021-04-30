@@ -80,7 +80,10 @@ void AddCriminal(
     strcpy_s(cur -> gangs, sizeof(cur -> gangs), gangs);
 
     if(v -> tail)
+    {
         v -> tail -> r = cur;
+        v -> tail = v -> tail -> r;
+    }
     else
         v -> head = v -> tail = cur;
     v -> size++;
@@ -100,7 +103,12 @@ void RecoveredCriminal(struct CriminalList *v) {
     if(v == NULL) return;
     struct Criminal *cur = v -> head;
     while(cur) {
-        cur = cur -> r;
+        if(cur -> r){
+            cur = cur -> r;
+        } else {
+            free(cur);
+            break;
+        }
         if(cur -> l) free(cur -> l);
     }
 }
@@ -212,7 +220,10 @@ void AddCrime(
     strcpy_s(cur -> comments, sizeof(cur -> comments), comments);
 
     if(v -> tail)
+    {
         v -> tail -> r = cur;
+        v -> tail = v -> tail -> r;
+    }
     else
         v -> head = v -> tail = cur;
     v -> size++;
@@ -232,7 +243,12 @@ void RecoveredCrime(struct CrimeList *v) {
     if(v == NULL) return;
     struct Crime *cur = v -> head;
     while(cur) {
-        cur = cur -> r;
+        if(cur -> r){
+            cur = cur -> r;
+        } else {
+            free(cur);
+            break;
+        }
         if(cur -> l) free(cur -> l);
     }
 }
@@ -304,7 +320,10 @@ void AddGang(
     strcpy_s(cur -> rating, sizeof(cur -> rating), rating);
 
     if(v -> tail)
+    {
         v -> tail -> r = cur;
+        v -> tail = v -> tail    -> r;
+    }
     else
         v -> head = v -> tail = cur;
     v -> size++;
@@ -324,7 +343,12 @@ void RecoveredGang(struct GangList *v) {
     if(v == NULL) return;
     struct Gang *cur = v -> head;
     while(cur) {
-        cur = cur -> r;
+        if(cur -> r){
+            cur = cur -> r;
+        } else {
+            free(cur);
+            break;
+        }
         if(cur -> l) free(cur -> l);
     }
 }
@@ -508,7 +532,6 @@ void SearchCriminalgangs(struct CriminalList *v, char gangs[20]){
             temp = temp -> r;
     }
 }
-
 
 void SearchGangname(struct GangList *v, char name[20]){
     struct Gang *temp = v -> head;
