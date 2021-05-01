@@ -940,6 +940,9 @@ void menushka() {
                     break;
                 }
             case 5: {
+                SaveCriminal(criminalBase);
+                SaveCrime(crimeBase);
+                SaveGang(orgBase);
                 return;
             }
             default: {
